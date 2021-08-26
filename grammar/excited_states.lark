@@ -31,4 +31,3 @@ _SEPARATOR: /[-]{51}/ _NL
 %import common.FLOAT
 %import common.SIGNED_FLOAT 
 %import common.NEWLINE -> _NL
-

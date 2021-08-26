@@ -1,0 +1,11 @@
+analysis: _ANALYSIS_SEPARATOR "Excited State Analysis" _NL _ANALYSIS_SEPARATOR _analysis_body+ _ANALYSIS_SEPARATOR
+_analysis_body: transition_density_analysis 
+              | _default
+transition_density_analysis: _BLOCK_SEPARATOR "Transition Density Matrix Analysis" _NL _BLOCK_SEPARATOR _transition_density_analysis_body+ _BLOCK_SEPARATOR 
+_transition_density_analysis_body: _default | /.+/ INT /.+/
+_ANALYSIS_SEPARATOR: /[=]{80}/ _NL
+_BLOCK_SEPARATOR: /[-]{76}/ _NL
+
+%import .tokens._default
+%import .tokens._NL
+%import common.INT
