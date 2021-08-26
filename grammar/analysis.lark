@@ -1,11 +1,45 @@
 analysis: _ANALYSIS_SEPARATOR "Excited State Analysis" _NL _ANALYSIS_SEPARATOR _analysis_body+ _ANALYSIS_SEPARATOR
 _analysis_body: transition_density_analysis 
               | _default
-transition_density_analysis: _BLOCK_SEPARATOR "Transition Density Matrix Analysis" _NL _BLOCK_SEPARATOR _transition_density_analysis_body+ _BLOCK_SEPARATOR 
-_transition_density_analysis_body: _default | /.+/ INT /.+/
+transition_density_analysis: _BLOCK_SEPARATOR "Transition Density Matrix Analysis" _NL _BLOCK_SEPARATOR _transition_density_analysis_body _BLOCK_SEPARATOR 
+_transition_density_analysis_body: excited_states
+
+excited_states: excited_state+
+
+excited_state: "Excited state" state_no ":" _NL _excited_state_body+
+_excited_state_body: "omega = " omega
+                   | "<r_e> [Ang]:" r_e
+                   | "<r_h> [Ang]:" r_h
+                   | "|<r_e - r_h>| [Ang]:" r_e_r_h_diff
+                   | "Covariance(r_h, r_e) [Ang^2]:" covariance
+                   | "Correlation coefficient:" correlation_coefficent
+                   | center_of_mass_size
+                   | hole
+                   | electron
+                   | rms_electron_hole
+                   | _default
+                   | _NL
+omega: FLOAT
+state_no: INT
+r_e: _vector
+r_h: _vector
+r_e_r_h_diff: FLOAT
+covariance: FLOAT
+correlation_coefficent: FLOAT
+hole: "Hole size [Ang]:" size _NL "Cartesian components [Ang]:" components
+electron: "Electron size [Ang]:" size _NL "Cartesian components [Ang]:" components
+rms_electron_hole: "RMS electron-hole separation [Ang]:" size _NL "Cartesian components [Ang]:" components
+center_of_mass_size: "Center-of-mass size [Ang]:" size _NL "Cartesian components [Ang]:" components
+size: FLOAT
+components: _vector
+
+
+_vector: "[" SIGNED_FLOAT "," SIGNED_FLOAT "," SIGNED_FLOAT "]"
 _ANALYSIS_SEPARATOR: /[=]{80}/ _NL
 _BLOCK_SEPARATOR: /[-]{76}/ _NL
 
 %import .tokens._default
 %import .tokens._NL
+%import common.SIGNED_FLOAT
 %import common.INT
+%import common.FLOAT
