@@ -1,3 +1,4 @@
+#! python3
 from lark import Lark
 from transformers import CleanNamespaceToken, CleanNamespaceTree, Base, Parse
 from pathlib import Path
