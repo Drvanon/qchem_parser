@@ -1,0 +1,18 @@
+start: _top+
+
+_top: _default
+   | _shells_line
+   | excited_states
+
+_shells_line: "There are" shells "shells and" basis_functions "basis functions" _NL
+shells: INT
+basis_functions: INT
+
+_default.-1: _LINE
+          | _NL
+_LINE: /.+/ _NL
+
+%import .tddft.excited_states 
+%import common.INT
+%import common.NEWLINE -> _NL
+%ignore " "

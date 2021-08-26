@@ -1,0 +1,34 @@
+excited_states: _SEPARATOR method "Excitation Energies" _NL _SEPARATOR excited_state+ _SEPARATOR
+method: TDDFT | TDDFT_TDA | CIS
+TDDFT: "TDDFT"
+TDDFT_TDA: "TDDFT/TDA"
+CIS: "CIS"
+excited_state: "Excited state" state_no (_excited_state_info|_NL)+
+_excited_state_info: ": excitation energy (eV) =" energy 
+                   | "Total energy for state" state_no ":" total_energy "au" 
+                   | "Multiplicity:" multiplicity 
+                   | "Trans. Mom.:" transition_moment 
+                   | "Strength" ":" strength 
+                   | transitions
+energy: FLOAT
+strength: FLOAT
+state_no: INT
+total_energy: SIGNED_FLOAT
+!multiplicity: "Singlet" | "Triplet"
+transition_moment: _coor_vector
+transitions: transition+
+transition: _TRANSITION_START "(" occupied ") --> V(" virtual ") amplitude ="  amplitude _NL
+_TRANSITION_START: /(X: )?D/ 
+occupied: INT
+virtual: INT
+amplitude: SIGNED_FLOAT
+
+_coor_vector: SIGNED_FLOAT "X" SIGNED_FLOAT "Y" SIGNED_FLOAT "Z"
+
+_SEPARATOR: /[-]{51}/ _NL
+
+%import common.INT
+%import common.FLOAT
+%import common.SIGNED_FLOAT 
+%import common.NEWLINE -> _NL
+
