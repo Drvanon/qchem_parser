@@ -18,10 +18,8 @@ def pretty(string):
     tree = parser.parse(string)
     click.echo(tree.pretty())
 
-
 from lark import Tree
 def step_through_tree(tree, func):
-
     func(tree)
     for child in tree.children:
         if isinstance(child, Tree):

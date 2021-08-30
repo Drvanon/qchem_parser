@@ -1,0 +1,48 @@
+excited_states: _SEPARATOR "Excited State Summary" _NL _SEPARATOR _SEPARATOR (excited_state|_default)+ _SEPARATOR
+excited_state: "Excited state" _excited_state_header _NL _EXCITED_STATE_SEPARATOR  _excited_state_body+ _EXCITED_STATE_SEPARATOR
+
+_excited_state_header: state_no "(" multiplicity "," electron ")" "[" converged_state "]" 
+
+converged_state: CONVERGED  | NOT_CONVERGED
+CONVERGED: "converged"
+NOT_CONVERGED: "not converged"
+electron: ALPHA | BETA
+ALPHA: "A"
+BETA: "B"
+multiplicity: SINGLET | TRIPLET
+SINGLET: "singlet"
+TRIPLET: "triplet"
+state_no: INT
+
+_excited_state_body: _default
+                   | total_energy
+                   | strength
+                   | _vector__line
+                   | transition_dipole_moment
+                   | transitions
+                   | _NL
+total_energy: "Total energy:" SIGNED_FLOAT "a.u."
+energy: "Excitation energy:" FLOAT "eV"
+strength: "Osc. strength:" FLOAT
+transition_dipole_moment: "Trans. dip. moment [a.u.]:" _vector
+_vector__line: v1_sq "," v2_sq
+v1_sq: "V1^2 =" FLOAT
+v2_sq: "V2^2 =" FLOAT
+
+transitions: _TRANSITIONS_SEPARATOR transition+ _TRANSITIONS_SEPARATOR
+transition: occupied "(" ("A"|"B") ")" ("A"|"B") virtual "(" ("A"|"B") ")" ("A"|"B") amplitude _NL
+occupied: INT
+virtual: INT
+amplitude: SIGNED_FLOAT
+
+_vector: "[" SIGNED_FLOAT "," SIGNED_FLOAT "," SIGNED_FLOAT "]"
+
+_SEPARATOR: /[-]{80}/ _NL
+_EXCITED_STATE_SEPARATOR: /[-]{76}/ _NL
+_TRANSITIONS_SEPARATOR: /[-]{59}/ _NL
+
+%import common.FLOAT
+%import common.SIGNED_FLOAT
+%import common.INT
+%import .tokens._NL
+%import .tokens._default 

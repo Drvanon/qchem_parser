@@ -18,13 +18,16 @@ class Base(Transformer):
     SIGNED_FLOAT = float
     INT = int 
 
+    def __default_token__(self, token):
+        return str(token)
+
     def excited_states__multiplicity(self, children):
         return Tree('excited_states__multiplicity', [children[0].lower()])
 
     def excited_states__method(self, children):
-        return children[0].value
+        return children[0]
         
-    def excited_states(self, children):        
+    def tddft__excited_states(self, children):        
         if type(children[0]) != str:
             warn(f"Type of a children[0] 'typeof({children[0]})' is not string, can not use it as a 'data' for a Tree().")
         return Tree(children[0], children[1:])

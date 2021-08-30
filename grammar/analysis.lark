@@ -1,10 +1,8 @@
-analysis: _ANALYSIS_SEPARATOR "Excited State Analysis" _NL _ANALYSIS_SEPARATOR _analysis_body+ _ANALYSIS_SEPARATOR
-_analysis_body: transition_density_analysis 
-              | _default
-transition_density_analysis: _BLOCK_SEPARATOR "Transition Density Matrix Analysis" _NL _BLOCK_SEPARATOR _transition_density_analysis_body _BLOCK_SEPARATOR 
-_transition_density_analysis_body: excited_states
+analysis: _ANALYSIS_SEPARATOR "Excited State Analysis" _NL _ANALYSIS_SEPARATOR (_transition_density_analysis | _default)+ _ANALYSIS_SEPARATOR
+_transition_density_analysis: _BLOCK_SEPARATOR "Transition Density Matrix Analysis" _NL _BLOCK_SEPARATOR _transition_density_analysis_body _BLOCK_SEPARATOR 
+_transition_density_analysis_body: _excited_states
 
-excited_states: excited_state+
+_excited_states: excited_state+
 
 excited_state: "Excited state" state_no ":" _NL _excited_state_body+
 _excited_state_body: "omega = " omega
