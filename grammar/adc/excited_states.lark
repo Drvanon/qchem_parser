@@ -44,5 +44,8 @@ _TRANSITIONS_SEPARATOR: /[-]{59}/ _NL
 %import common.FLOAT
 %import common.SIGNED_FLOAT
 %import common.INT
-%import .tokens._NL
-%import .tokens._default 
+
+_default.-1: _LINE
+          | _NL
+_LINE: /.+/ _NL
+%import common.NEWLINE -> _NL

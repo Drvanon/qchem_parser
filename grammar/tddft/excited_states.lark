@@ -30,4 +30,6 @@ _SEPARATOR: /[-]{51}/ _NL
 %import common.INT
 %import common.FLOAT
 %import common.SIGNED_FLOAT 
+
+%import tokens._default
 %import common.NEWLINE -> _NL

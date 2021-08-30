@@ -1,0 +1,49 @@
+groundstate_multipole: _SEPARATOR "Cartesian Multipole Moments" _NL _SEPARATOR _body _SEPARATOR
+
+excited_states_multipoles: excited_state_multipole+
+excited_state_multipole: _SEPARATOR method "Excited-State Multipoles, State" state_no _NL _SEPARATOR _body _SEPARATOR 
+method: CIS | TDDFT | TDDFT_TDA
+CIS: "CIS"
+TDDFT: "RPA"
+TDDFT_TDA: "TDA"
+state_no: INT
+
+_body: charge  dipole quadrupole octopole _default+ 
+
+charge: "Charge (ESU x 10^10)" _NL SIGNED_FLOAT _NL
+
+dipole: "Dipole Moment (Debye)" _NL "X" x "Y" y "Z" z _NL "Tot" total _NL
+
+x: SIGNED_FLOAT
+y: SIGNED_FLOAT
+z: SIGNED_FLOAT
+total: SIGNED_FLOAT
+
+quadrupole: "Quadrupole Moments (Debye-Ang)" _NL "XX" xx "XY" xy "YY" yy _NL "XZ" xz "YZ" yz "ZZ" zz _NL
+
+xx: SIGNED_FLOAT
+xy: SIGNED_FLOAT
+yy: SIGNED_FLOAT
+xz: SIGNED_FLOAT
+yz: SIGNED_FLOAT
+zz: SIGNED_FLOAT
+
+octopole: "Octopole Moments (Debye-Ang^2)" _NL "XXX" xxx "XXY" xxy "XYY" xyy _NL "YYY" yyy "XXZ" xxz "XYZ" xyz _NL "YYZ" yyz "XZZ" xzz "YZZ" yzz _NL "ZZZ" zzz _NL 
+
+xxx: SIGNED_FLOAT
+xxy: SIGNED_FLOAT
+xyy: SIGNED_FLOAT
+yyy: SIGNED_FLOAT
+xxz: SIGNED_FLOAT
+xyz: SIGNED_FLOAT
+yyz: SIGNED_FLOAT
+xzz: SIGNED_FLOAT
+yzz: SIGNED_FLOAT
+zzz: SIGNED_FLOAT
+
+_SEPARATOR: /[-]{65}/ _NL
+
+%import tokens._NL
+%import tokens._default
+%import common.INT
+%import common.SIGNED_FLOAT

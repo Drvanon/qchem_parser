@@ -6,7 +6,9 @@ from pprint import pformat
 import click
 import sys
 
-parser = Lark.open("grammar/parser.lark", rel_to=Path(__file__).parents[0] / 'grammar')
+parser = Lark.open(
+        Path(__file__).parents[0] / "grammar" / "parser.lark",
+        import_paths=[Path(__file__).parents[0] / 'grammar'])
 
 def parse(string):
     tree = parser.parse(string)

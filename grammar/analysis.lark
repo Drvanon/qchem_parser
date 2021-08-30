@@ -36,8 +36,8 @@ _vector: "[" SIGNED_FLOAT "," SIGNED_FLOAT "," SIGNED_FLOAT "]"
 _ANALYSIS_SEPARATOR: /[=]{80}/ _NL
 _BLOCK_SEPARATOR: /[-]{76}/ _NL
 
-%import .tokens._default
-%import .tokens._NL
+%import tokens._default
+%import tokens._NL
 %import common.SIGNED_FLOAT
 %import common.INT
 %import common.FLOAT

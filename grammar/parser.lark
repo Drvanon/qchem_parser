@@ -5,15 +5,19 @@ _top: _default
    | tddft__analysis
    | adc__excited_states
    | tddft__excited_states
+   | groundstate_multipole
+   | excited_states_multipoles
 
 _shells_line: "There are" shells "shells and" basis_functions "basis functions" _NL
 shells: INT
 basis_functions: INT
 
-%import .adc_excited_states.excited_states -> adc__excited_states
-%import .excited_states.excited_states -> tddft__excited_states
-%import .analysis.analysis -> tddft__analysis
-%import .tokens._default
-%import .tokens._NL
+%import adc.excited_states.excited_states -> adc__excited_states
+%import tddft.excited_states.excited_states -> tddft__excited_states
+%import analysis.analysis -> tddft__analysis
+%import multipoles.groundstate_multipole
+%import multipoles.excited_states_multipoles
+%import tokens._default
+%import tokens._NL
 %import common.INT
 %ignore " "

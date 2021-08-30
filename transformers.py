@@ -5,12 +5,12 @@ from warnings import warn
 
 class CleanNamespaceToken(Transformer):
     def __default_token__(self, token):
-        token.type = token.type.split("__", 1)[-1]
+        token.type = token.type.rsplit("__", 1)[-1]
         return token
 
 class CleanNamespaceTree(Transformer):
     def __default__(self, data, children, meta):
-        data = data.split("__", 1)[-1]
+        data = data.rsplit("__", 1)[-1]
         return Tree(data, children, meta)
 
 class Base(Transformer):
@@ -21,10 +21,10 @@ class Base(Transformer):
     def __default_token__(self, token):
         return str(token)
 
-    def excited_states__multiplicity(self, children):
+    def tdddt__excited_states__multiplicity(self, children):
         return Tree('excited_states__multiplicity', [children[0].lower()])
 
-    def excited_states__method(self, children):
+    def tddft__excited_states__method(self, children):
         return children[0]
         
     def tddft__excited_states(self, children):        
@@ -34,12 +34,15 @@ class Base(Transformer):
 
 class Parse(Transformer):
     def __default__(self, data, children, meta):
+        # Assume that if a tree has one child it is an atom.
         if len(children) == 0:
             return Tree(data, children, meta)
         elif isinstance(children[0], Tree):
-            if len(set([child.data for child in children])) == 1:
-                return Tree(data, [child.children for child in children], meta)
-            return Tree(data, { child.data: child.children for child in children }, meta)
+            # if the children are all of the same rule, assume a list structure
+            if len(set([child.data for child in children if isinstance(child, Tree)])) == 1:
+                return Tree(data, [child.children for child in children if isinstance(child, Tree)], meta)
+            # if children have different rules than assume a dict structure
+            return Tree(data, { child.data: child.children for child in children if isinstance(child, Tree)}, meta)
         elif len(children) == 1:
             return Tree(data, children[0], meta)
         else:
