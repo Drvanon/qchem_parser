@@ -21,8 +21,8 @@ class Base(Transformer):
     def __default_token__(self, token):
         return str(token)
 
-    def tdddt__excited_states__multiplicity(self, children):
-        return Tree('excited_states__multiplicity', [children[0].lower()])
+    def tddft__excited_states__multiplicity(self, children):
+        return Tree('tddft__excited_states__multiplicity', [children[0].lower()])
 
     def tddft__excited_states__method(self, children):
         return children[0]

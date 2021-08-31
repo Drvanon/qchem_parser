@@ -26,7 +26,7 @@ def pretty(string):
 
 def debug_f(string):
     tree = parser.parse(string)
-    transformer = CleanNamespaceToken() * Base() * CleanNamespaceTree()
+    transformer = CleanNamespaceToken() * Base() #* CleanNamespaceTree()
     tree = transformer.transform(tree) 
     click.echo(tree.pretty())
     
@@ -35,8 +35,8 @@ def debug_f(string):
 @click.argument("inputfile", type=click.File('r'))
 @click.option("-p", "--pretty-print", is_flag=True)
 @click.option("-d", "--debug", is_flag=True)
-@click.option("-f", "--fix_occupied", is_flag=True)
-def main(inputfile, pretty_print, debug, fix_occupied):
+@click.option("-n", "--no-fix_occupied", is_flag=True)
+def main(inputfile, pretty_print, debug, no_fix_occupied):
     fstr = inputfile.read()
     inputfile.close()
     if pretty_print:
@@ -48,7 +48,7 @@ def main(inputfile, pretty_print, debug, fix_occupied):
 
     # Transformation returns the 'start' Tree instance, which contains the 
     # dict in it's children property.
-    parsed = parse(fstr, fix_occupied=fix_occupied)
+    parsed = parse(fstr, fix_occupied=not no_fix_occupied)
     # This should become json.dumps when the output is no longer a Tree instance.
     click.echo(pformat(parsed))
 
