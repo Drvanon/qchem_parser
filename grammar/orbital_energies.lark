@@ -1,0 +1,16 @@
+orbital_energies: _SEPARATOR  _NL "Orbital Energies (a.u.)" _NL _SEPARATOR _NL _body+ _SEPARATOR
+
+_body: _mo_template{"Alpha"} | _mo_template{"Beta"}
+
+_mo_template{electron_name}: electron_name "MOs" _NL _arrays
+
+_arrays: "--" "Occupied" "--" _NL  occupied "--" "Virtual" "--" virtual
+occupied: _array
+virtual: _array
+
+_array: (SIGNED_FLOAT|_NL)+
+_SEPARATOR: /[-]{62}/ _NL
+
+%import tokens._NL
+%import tokens._default
+%import common.SIGNED_FLOAT

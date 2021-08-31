@@ -13,8 +13,8 @@ parser = Lark.open(
 def parse(string):
     tree = parser.parse(string)
     transformer = CleanNamespaceToken() * Base() * CleanNamespaceTree() * Parse()
-    result = transformer.transform(tree) 
-    return result
+    resulting_tree = transformer.transform(tree) 
+    return resulting_tree.children
 
 def pretty(string):
     tree = parser.parse(string)
@@ -51,7 +51,7 @@ def main(inputfile, pretty_print, debug):
 
     # Transformation returns the 'start' Tree instance, which contains the 
     # dict in it's children property.
-    parsed = parse(fstr).children
+    parsed = parse(fstr)
     # This should become json.dumps when the output is no longer a Tree instance.
     click.echo(pformat(parsed))
 

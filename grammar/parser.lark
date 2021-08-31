@@ -7,6 +7,7 @@ _top: _default
    | tddft__excited_states
    | groundstate_multipole
    | excited_states_multipoles
+   | orbital_energies
 
 _shells_line: "There are" shells "shells and" basis_functions "basis functions" _NL
 shells: INT
@@ -17,6 +18,7 @@ basis_functions: INT
 %import analysis.analysis -> tddft__analysis
 %import multipoles.groundstate_multipole
 %import multipoles.excited_states_multipoles
+%import orbital_energies.orbital_energies
 %import tokens._default
 %import tokens._NL
 %import common.INT
