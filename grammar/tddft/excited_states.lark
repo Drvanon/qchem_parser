@@ -3,13 +3,13 @@ method: TDDFT | TDDFT_TDA | CIS
 TDDFT: "TDDFT"
 TDDFT_TDA: "TDDFT/TDA"
 CIS: "CIS"
-excited_state: "Excited state" state_no (_excited_state_info|_NL)+
+excited_state: "Excited state" state_no _excited_state_info+ transitions _NL*
 _excited_state_info: ": excitation energy (eV) =" energy 
                    | "Total energy for state" state_no ":" total_energy "au" 
                    | "Multiplicity:" multiplicity 
                    | "Trans. Mom.:" transition_moment 
                    | "Strength" ":" strength 
-                   | transitions
+                   | _NL
 energy: FLOAT
 strength: FLOAT
 state_no: INT
@@ -30,6 +30,4 @@ _SEPARATOR: /[-]{51}/ _NL
 %import common.INT
 %import common.FLOAT
 %import common.SIGNED_FLOAT 
-
-%import tokens._default
 %import common.NEWLINE -> _NL
