@@ -26,9 +26,10 @@ def pretty(string):
 
 def debug_f(string):
     tree = parser.parse(string)
-    transformer = CleanNamespaceToken() * Base() #* CleanNamespaceTree()
+    transformer = CleanNamespaceToken() * Base() * CleanNamespaceTree() * Parse()
     tree = transformer.transform(tree) 
-    click.echo(tree.pretty())
+    # click.echo(tree.pretty())
+    click.echo(pformat(tree.children["TDDFT"]))
     
 
 @click.command()

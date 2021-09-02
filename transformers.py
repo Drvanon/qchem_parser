@@ -41,8 +41,15 @@ class Parse(Transformer):
             # if the children are all of the same rule, assume a list structure
             if len(set([child.data for child in children if isinstance(child, Tree)])) == 1:
                 return Tree(data, [child.children for child in children if isinstance(child, Tree)], meta)
+
             # if children have different rules than assume a dict structure
-            return Tree(data, { child.data: child.children for child in children if isinstance(child, Tree)}, meta)
+            new_children_dict = {}
+            for child in children:
+                if not isinstance(child, Tree): continue
+                if child.data in new_children_dict:
+                    warn(f"Overwriting key '{child.data}'")
+                new_children_dict[child.data] = child.children
+            return Tree(data, new_children_dict, meta)
         elif len(children) == 1:
             return Tree(data, children[0], meta)
         else:

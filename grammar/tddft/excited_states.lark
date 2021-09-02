@@ -5,7 +5,7 @@ TDDFT_TDA: "TDDFT/TDA"
 CIS: "CIS"
 excited_state: "Excited state" state_no _excited_state_info+ transitions _NL*
 _excited_state_info: ": excitation energy (eV) =" energy 
-                   | "Total energy for state" state_no ":" total_energy "au" 
+                   | "Total energy for state" _state_no ":" total_energy "au" 
                    | "Multiplicity:" multiplicity 
                    | "Trans. Mom.:" transition_moment 
                    | "Strength" ":" strength 
@@ -13,6 +13,7 @@ _excited_state_info: ": excitation energy (eV) =" energy
 energy: FLOAT
 strength: FLOAT
 state_no: INT
+_state_no: INT
 total_energy: SIGNED_FLOAT
 !multiplicity: "Singlet" | "Triplet"
 transition_moment: _coor_vector
