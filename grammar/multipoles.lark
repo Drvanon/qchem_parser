@@ -1,3 +1,5 @@
+_multipole_section: groundstate_multipole excited_states_multipoles?
+
 groundstate_multipole: _SEPARATOR "Cartesian Multipole Moments" _NL _SEPARATOR _body _SEPARATOR
 
 excited_states_multipoles: excited_state_multipole+
